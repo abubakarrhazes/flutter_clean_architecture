@@ -4,6 +4,7 @@ import 'package:flutter_clean_architecture/features/auth/data/data_source/remote
 import 'package:flutter_clean_architecture/features/auth/domain/entities/user_entity.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import '../../../../../core/const.dart';
 import '../../models/user_model.dart';
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource{
@@ -20,7 +21,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource{
 
   @override
   Future<void> createNewUser(UserEntity user) async {
-    final userCollection = firebaseFireStore.collection('user');
+    final userCollection = firebaseFireStore.collection(Const.firebaseUser);
     final uid = await getCurrentId();
     userCollection.doc(uid).get().then((userDoc) {
       final newUser = UserModel(
@@ -63,13 +64,13 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource{
         await firebaseAuth.createUserWithEmailAndPassword(
             email: user.email!, password: user.password!);
       } else {
-        print('Field Cant be Empty');
+        print('Fields Cant be Empty');
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'User Not Found') {
-        print();
-      } else if (e.code == FireBaseConst.wrong_password_or_email) {
-        print(FireBaseConst.wrong_password_or_email);
+      if (e.code == Const.firebaseUserNotFound) {
+        print(Const.firebaseUserNotFound);
+      } else if (e.code == Const.firebaseWrongPasswordOrEmail) {
+        print(Const.firebaseWrongPasswordOrEmail);
       }
     } catch (e) {}
   }
