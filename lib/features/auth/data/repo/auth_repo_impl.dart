@@ -2,28 +2,24 @@ import 'package:flutter_clean_architecture/features/auth/data/data_source/remote
 import 'package:flutter_clean_architecture/features/auth/domain/entities/user_entity.dart';
 import 'package:flutter_clean_architecture/features/auth/domain/repo/auth_repo.dart';
 
-class AuthRepoImpl extends AuthRepo{
-
-
+class AuthRepoImpl extends AuthRepo {
   final AuthRemoteDataSource authRemoteDataSource;
 
   AuthRepoImpl({required this.authRemoteDataSource});
-
 
   @override
   Future<void> createNewUser(UserEntity user) async =>
       await authRemoteDataSource.createNewUser(user);
 
   @override
-  Future<String> getCurrentId() {
+  Future<String> getCurrentId() async {
     // TODO: implement getCurrentId
-    throw UnimplementedError();
+    return await authRemoteDataSource.getCurrentId();
   }
 
   @override
-  Future<bool> isSignIn() {
-    // TODO: implement isSignIn
-    throw UnimplementedError();
+  Future<bool> isSignIn() async {
+    return await authRemoteDataSource.isSignIn();
   }
 
   @override
@@ -50,9 +46,8 @@ class AuthRepoImpl extends AuthRepo{
     throw UnimplementedError();
   }
 
-
-
-
-
-
+  @override
+  Future<bool> checkUserStatus(String docId) async {
+    return await authRemoteDataSource.checkUserStatus(docId);
+  }
 }

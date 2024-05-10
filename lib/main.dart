@@ -1,6 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/pages/sign_up_screen.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/pages/splash_screen.dart';
 import 'package:flutter_clean_architecture/firebase_options.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'injection_container.dart' as di;
 
 Future<void> main() async {
@@ -16,13 +22,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Clean Architecture',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+    return GetMaterialApp(
+        title: 'Uber Driver',
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen());
   }
 }

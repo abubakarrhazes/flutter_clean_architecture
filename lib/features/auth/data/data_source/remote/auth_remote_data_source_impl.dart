@@ -7,17 +7,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 import '../../../../../core/const.dart';
 import '../../models/user_model.dart';
 
-class AuthRemoteDataSourceImpl extends AuthRemoteDataSource{
-
+class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   final FirebaseAuth firebaseAuth;
   final FirebaseFirestore firebaseFireStore;
   final FirebaseStorage firebaseStorage;
 
-
-  AuthRemoteDataSourceImpl({required this.firebaseAuth,required this.firebaseStorage, required this.firebaseFireStore });
-
-
-
+  AuthRemoteDataSourceImpl(
+      {required this.firebaseAuth,
+      required this.firebaseStorage,
+      required this.firebaseFireStore});
 
   @override
   Future<void> createNewUser(UserEntity user) async {
@@ -25,10 +23,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource{
     final uid = await getCurrentId();
     userCollection.doc(uid).get().then((userDoc) {
       final newUser = UserModel(
-          uid: user.uid,
-          name: user.name,
-          email: user.email,
-          password: user.password)
+              uid: user.uid,
+              name: user.name,
+              email: user.email,
+              password: user.password)
           .toJson();
 
       if (!userDoc.exists) {
@@ -47,9 +45,12 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource{
   Future<String> getCurrentId() async => firebaseAuth.currentUser!.uid;
 
   @override
-  Future<bool> isSignIn() {
-    // TODO: implement isSignIn
-    throw UnimplementedError();
+  Future<bool> isSignIn() async {
+    if (firebaseAuth.currentUser == null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   @override
@@ -57,6 +58,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource{
     // TODO: implement resetPassword
     throw UnimplementedError();
   }
+
   @override
   Future<void> signIn(UserEntity user) async {
     try {
@@ -87,11 +89,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource{
     throw UnimplementedError();
   }
 
-
-
-
-
-
-
-
+  @override
+  Future<bool> checkUserStatus(String docId) async {
+    final userCollection = firebaseFireStore.collection(Const.firebaseUser);
+    var doc = await userCollection.doc(docId).get();
+    return doc.exists;
+  }
 }
