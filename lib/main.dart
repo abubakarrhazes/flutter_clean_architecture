@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Uber Driver',
+        title: 'Foodie',
         debugShowCheckedModeBanner: false,
         home: SplashScreen());
   }

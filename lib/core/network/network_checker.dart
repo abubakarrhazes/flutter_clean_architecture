@@ -6,13 +6,13 @@ class NetworkChecker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Image.asset('assets/nonet.jpg'),
+            Image.asset('assets/images/nonet.jpg'),
             const Text(
               "Please Check Your Connection!",
               style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),

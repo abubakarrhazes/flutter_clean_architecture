@@ -7,6 +7,10 @@ abstract class AuthRepo {
   Future<bool> isSignIn();
   Future<void> signOut();
   Future<bool> checkUserStatus(String docId);
+  Future<void> authPhoneVerification(String phoneNumber);
+
+  Future<void> authOtpVerification(String otp);
+  Future<String> addProfileImg(String userId);
 
   //User
   Future<String> getCurrentId();

@@ -41,13 +41,27 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<void> signUp(UserEntity user) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<void> signUp(UserEntity user) async {
+    return await authRemoteDataSource.signUp(user);
   }
 
   @override
   Future<bool> checkUserStatus(String docId) async {
     return await authRemoteDataSource.checkUserStatus(docId);
+  }
+
+  @override
+  Future<void> authOtpVerification(String otp) async {
+    return await authRemoteDataSource.authOtpVerification(otp);
+  }
+
+  @override
+  Future<void> authPhoneVerification(String phoneNumber) async {
+    return await authRemoteDataSource.authPhoneVerification(phoneNumber);
+  }
+
+  @override
+  Future<String> addProfileImg(String userId) async {
+    return await authRemoteDataSource.addProfileImg(userId);
   }
 }

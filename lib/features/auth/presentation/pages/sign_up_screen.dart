@@ -23,6 +23,7 @@ final AuthControllers authControllers = Get.find();
 void dispose() {
   nameController.dispose();
   emailController.dispose();
+  passwordController.dispose();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
@@ -42,7 +43,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   CircleAvatar(
                     radius: 45,
-                    backgroundImage: NetworkImage(''),
+                    backgroundImage:
+                        NetworkImage(authControllers.profileImgUrl.value),
                     //FileImage(_profileImage!),
                   ),
                   Positioned(
@@ -50,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       left: 0,
                       child: GestureDetector(
                         onTap: () {
-                          //_uberAuthController.pickProfileImg();
+                          authControllers.pickProfileImg();
                         },
                         child: Container(
                           padding: const EdgeInsets.all(3),
@@ -66,9 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
               authRegisterPageBody(
-                  authControllers.nameController,
-                  authControllers.emailController,
-                  authControllers.passwordController),
+                  nameController, emailController, passwordController),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

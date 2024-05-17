@@ -8,6 +8,9 @@ import 'package:flutter_clean_architecture/features/auth/data/data_source/remote
 import 'package:flutter_clean_architecture/features/auth/data/data_source/remote/auth_remote_data_source_impl.dart';
 import 'package:flutter_clean_architecture/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:flutter_clean_architecture/features/auth/domain/repo/auth_repo.dart';
+import 'package:flutter_clean_architecture/features/auth/domain/use_case/add_profile_image_use_case.dart';
+import 'package:flutter_clean_architecture/features/auth/domain/use_case/auth_otp_verification_use_case.dart';
+import 'package:flutter_clean_architecture/features/auth/domain/use_case/auth_phone_verifcation_use_case.dart';
 import 'package:flutter_clean_architecture/features/auth/domain/use_case/check_user_status_use_case.dart';
 import 'package:flutter_clean_architecture/features/auth/domain/use_case/create_new_user_use_case.dart';
 import 'package:flutter_clean_architecture/features/auth/domain/use_case/get_current_id_use_case.dart';
@@ -42,6 +45,9 @@ Future<void> authServiceLocator() async {
         isSignInUseCase: sl.call(),
         getCurrentIdUseCase: sl.call(),
         checkUserStatusUseCase: sl.call(),
+        authOtpVerificationUseCase: sl.call(),
+        authPhoneVerifcationUseCase: sl.call(),
+        addProfileImageUseCase: sl.call(),
         resetPasswordUseCase: sl.call()))
 
     //Register Use Case
@@ -59,6 +65,12 @@ Future<void> authServiceLocator() async {
         () => GetCurrentIdUseCase(authRepo: sl.call()))
     ..registerLazySingleton<CheckUserStatusUseCase>(
         () => CheckUserStatusUseCase(authRepo: sl.call()))
+    ..registerLazySingleton<AuthPhoneVerifcationUseCase>(
+        () => AuthPhoneVerifcationUseCase(authRepo: sl.call()))
+    ..registerLazySingleton<AuthOtpVerificationUseCase>(
+        () => AuthOtpVerificationUseCase(authRepo: sl.call()))
+    ..registerLazySingleton<AddProfileImageUseCase>(
+        () => AddProfileImageUseCase(authRepo: sl.call()))
     //Register Repository
     ..registerLazySingleton<AuthRepo>(
         () => AuthRepoImpl(authRemoteDataSource: sl.call()))

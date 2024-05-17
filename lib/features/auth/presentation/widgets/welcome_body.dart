@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/pages/auth_phone_verification_screen.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/pages/sign_in_screen.dart';
 import 'package:flutter_clean_architecture/features/auth/presentation/pages/sign_up_screen.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -46,7 +48,7 @@ Widget uberAuthLoginButton() {
     width: double.infinity,
     child: ElevatedButton(
       onPressed: () {
-        Get.to(() => const SignUpScreen());
+        Get.to(() => const AuthPhoneVerificationScreen());
       },
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
